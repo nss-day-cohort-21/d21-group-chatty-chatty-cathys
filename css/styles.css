@@ -5,3 +5,12 @@
 	width: 80%;
 	min-height: 100vh;
 }
+
+.dark-theme {
+	background-color: #333333;
+	color: #cccccc;
+}
+
+.large-text {
+	font-size: 1.75em;
+}
