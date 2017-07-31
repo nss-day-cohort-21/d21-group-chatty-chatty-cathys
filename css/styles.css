@@ -1,3 +1,6 @@
+.container {
+	margin: 0 auto;
+}
 #message-box {
 	margin: 200px auto;
 	border: 3px solid black;
@@ -5,3 +8,35 @@
 	width: 80%;
 	min-height: 100vh;
 }
+nav {
+	height: 15vh;
+}
+#clear-btn {
+	margin-top: 8px;
+}
+#dark-theme{
+	margin-left: 15px;
+}
+a.navbar-brand {
+	
+	height: 15vh;
+	margin: 0 auto;
+}
+.brand-img {
+	float: right;
+}
+.navbar-brand {
+    padding: 15px 0;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.dark-theme {
+	background-color: #333333;
+	color: #cccccc;
+}
+
+.large-text {
+	font-size: 1.75em;
+}
+
