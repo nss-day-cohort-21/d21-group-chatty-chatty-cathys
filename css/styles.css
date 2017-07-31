@@ -1,0 +1,7 @@
+#message-box {
+	margin: 200px auto;
+	border: 3px solid black;
+	border-radius: 15px;
+	width: 80%;
+	min-height: 100vh;
+}
