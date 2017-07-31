@@ -26,7 +26,7 @@ console.log("loader.js loaded");
       jsonMessages = messages[i];
 
       let eachMessageDiv = document.createElement("div"); // create a div for each json message
-      eachMessageDiv.id = `jsonMessage${jsonMessages.messageID}`
+      eachMessageDiv.id = `jsonMessage${jsonMessages.messageID}`;
       eachMessageDiv.innerHTML = jsonMessages.message; //set text of div to message from json file
 
       let eachMessageDeleteButton = document.createElement("button"); //create delete button for each message
