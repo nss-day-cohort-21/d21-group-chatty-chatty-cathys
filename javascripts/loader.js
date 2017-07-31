@@ -1,4 +1,4 @@
-console.log("loader.js loaded");
+// console.log("loader.js loaded");
 
 {
   var Chatty = {};
@@ -14,6 +14,15 @@ console.log("loader.js loaded");
     myR.open("GET", "messages.json")
     myR.send();
   }
+
+  Chatty.pushJSON = (message) => {
+    loadedJSON.push(message);
+  }
+
+  Chatty.returnJSON = () => {
+    console.log(loadedJSON);
+    return loadedJSON
+  }
 }
 
 
@@ -23,7 +32,10 @@ console.log("loader.js loaded");
   let jsonMessages; // store current json message
   Chatty.getMessages = function(messages) {
     for (var i = 0; i < messages.length; i++) {
+
       jsonMessages = messages[i];
+
+      Chatty.pushJSON(jsonMessages);
 
       let eachMessageDiv = document.createElement("div"); // create a div for each json message
       eachMessageDiv.id = `jsonMessage${jsonMessages.messageID}`;

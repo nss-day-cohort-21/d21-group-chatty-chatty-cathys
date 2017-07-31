@@ -1,9 +1,19 @@
-console.log("main.js loaded");
+// console.log("main.js loaded");
 
 //MAIN TEXT AREA FUNCTION//
 
 {
-	let userMessages = [];
+  let thisMessage;
+  console.log(Chatty.returnJSON());
+  let eachJSONMessage = Chatty.returnJSON();
+  console.log(eachJSONMessage);
+  let userMessages = [];
+  for (var i = 0; i < eachJSONMessage.length; i++) {
+    thisMessage = eachJSONMessage[i];
+    userMessages.push(thisMessage);
+    console.log(userMessages);
+  }
+  console.log(userMessages);
 	let inputArea = document.getElementById("messages-input");
 	let outputDiv = document.getElementById("message-box");
 	let messageStructure;
@@ -18,7 +28,7 @@ console.log("main.js loaded");
 			 	let inputText = inputArea.value;
 			 	let date = new Date();
 				let utcDate = date.toUTCString();
-				console.log( "utcDate", utcDate );
+				// console.log( "utcDate", utcDate );
 
 				messageObject =
 				{
@@ -27,7 +37,7 @@ console.log("main.js loaded");
 					"message" : inputText,
 					"timestamp": utcDate
 				}
-				console.log( "messageObject", messageObject );
+				// console.log( "messageObject", messageObject );
 
 
 
@@ -41,9 +51,9 @@ console.log("main.js loaded");
 												<p>${userMessages[i].timestamp}</p>
 												<p>
 												Message #${i + 1}
-												<p>
-												</div>
-												<button type="button">Delete</button>`;
+												</p>
+												<button type="button" class="deleteBtn">Delete</button>
+                        </div>`;
 
 
 				};
@@ -55,6 +65,12 @@ console.log("main.js loaded");
 
     }
 	Chatty.addReturnButton(inputArea);
+
+  Chatty.getUserMessagesArr = () => {
+    return userMessages
+  }
+
+
 }
 
 
