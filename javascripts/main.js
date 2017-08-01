@@ -101,7 +101,7 @@
                               `;
             messageDiv.innerHTML = messageStructure;
             messageDiv.appendChild(editBtn);
-            outputDiv.appendChild(messageDiv);
+            $("#message-box").prepend(messageDiv);
 
             let thisEditButton = document.getElementById(`editBtn${i}`);
             thisEditButton.addEventListener("click", function(e) {
@@ -146,7 +146,7 @@
                         `;
       messageDiv.innerHTML = messageStructure;
       messageDiv.appendChild(editBtn);
-      outputDiv.appendChild(messageDiv);
+      $("#message-box").prepend(messageDiv);
 
       let thisEditButton = document.getElementById(`editBtn${i}`);
       thisEditButton.addEventListener("click", function(e) {
@@ -185,7 +185,7 @@
       messageDiv.appendChild(editBtn);
       console.log(messageDiv);
       console.log(outputDiv);
-      outputDiv.appendChild(messageDiv);
+      $("#message-box").prepend(messageDiv);
 
       let thisEditButton = document.getElementById(`editBtn${i}`);
       thisEditButton.addEventListener("click", function(e) {
