@@ -10,7 +10,7 @@
       let index = Chatty.findIndex(currentMessagesArr, "id", Number(e.target.parentNode.id));
       currentMessagesArr.splice(index, 1);
       Chatty.updateUserMessagesArray(currentMessagesArr);
-      messageBox.removeChild(e.target.parentNode);
+      messageBox.removeChild(e.target.parentNode.parentNode);
     }
   })
 
