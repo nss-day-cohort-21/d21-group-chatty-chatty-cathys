@@ -1,9 +1,11 @@
-console.log("loader.js loaded");
+// console.log("loader.js loaded");
 
 {
   var Chatty = {};
 
   let loadedJSON = [];
+
+  let messagesArray = [];
 
   Chatty.loadJSON = function(callback) {
     let myR = new XMLHttpRequest();
@@ -11,8 +13,16 @@ console.log("loader.js loaded");
       loadedJSON = JSON.parse(this.responseText);
       callback(loadedJSON)
     })
-    myR.open("GET", "messages.json")
+    myR.open("GET", "messages.json", false)
     myR.send();
+  }
+
+  Chatty.pushJSON = (message) => {
+    messagesArray.push(message);
+  }
+
+  Chatty.returnJSON = () => {
+    return messagesArray
   }
 }
 
@@ -23,24 +33,25 @@ console.log("loader.js loaded");
   let jsonMessages; // store current json message
   Chatty.getMessages = function(messages) {
     for (var i = 0; i < messages.length; i++) {
+
       jsonMessages = messages[i];
 
-      let eachMessageDiv = document.createElement("div"); // create a div for each json message
-      eachMessageDiv.id = `jsonMessage${jsonMessages.messageID}`
-      eachMessageDiv.innerHTML = jsonMessages.message; //set text of div to message from json file
+      Chatty.pushJSON(jsonMessages);
 
-      let eachMessageDeleteButton = document.createElement("button"); //create delete button for each message
-      eachMessageDeleteButton.id = `deleteBtn${jsonMessages.messageID}`;
-      eachMessageDeleteButton.innerHTML = "Delete";
-      eachMessageDiv.appendChild(eachMessageDeleteButton); //append btn to div and then div to display area, so it is now on the DOM
-      messageBox.appendChild(eachMessageDiv);
 
-      let thisMessgaeDeleteButton = document.getElementById(`deleteBtn${jsonMessages.messageID}`); //get each button by ID created
-      thisMessgaeDeleteButton.addEventListener("click", function(e) {
-        messageBox.removeChild(eachMessageDiv); //add event listener that removes the div the button is in from the DOM
-      })
+      messageStructure = `<div id="${i}">
+                    <h4>${messages[i].user}</h4>
+                    <p>${messages[i].message}</p>
+                    <p>${messages[i].timestamp}</p>
+                    <p>
+                    Message #${i + 1}
+                    </p>
+                    <button type="button" class="deleteBtn">Delete</button>
+                    </div>`;
+      messageBox.innerHTML += messageStructure;
+      };
+
     }
-  }
 }
 
 Chatty.loadJSON(Chatty.getMessages);

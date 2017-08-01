@@ -1,51 +1,48 @@
-console.log("main.js loaded");
+// console.log("main.js loaded");
 
 //MAIN TEXT AREA FUNCTION//
 
 {
-	let userMessages = [];
+  let thisMessage;
+  let eachJSONMessage = Chatty.returnJSON();
+  let userMessages = [];
+  for (var i = 0; i < eachJSONMessage.length; i++) {
+    thisMessage = eachJSONMessage[i];
+    userMessages.push(thisMessage);
+  }
+
 	let inputArea = document.getElementById("messages-input");
 	let outputDiv = document.getElementById("message-box");
 	let messageStructure;
 	let messageObject = {};
-	// console.log( "userText", userText );
 
-	
-	// console.log( "currentUser", currentUser );
-
-	Chatty.addReturnButton = (element) => {
-		element.addEventListener("keypress", (event) =>{
-			if (event.keyCode === 13) {
-			 	event.preventDefault();
-				let currentUser = document.querySelector('input[name = "user"]:checked').value
-				let inputText = inputArea.value;
-
-				if (currentUser === "" || inputText==="") {
+$("#messages-input").unbind().keypress((event) =>{
+	if (event.keyCode === 13) {
+	 	event.preventDefault();
+	 	// console.log( "return was pressed" );
+	 	
+	 	let inputText = inputArea.value;
+	 	let date = new Date();
+		let utcDate = date.toUTCString();
+		let currentUser = document.querySelector('input[name = "user"]:checked').value
+		console.log( "currentUser", currentUser );
+		// console.log( "utcDate", utcDate );
+		if (currentUser === "" || inputText==="") {
 
 					alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
 
-				}  else  {
+		}  else  {
 
-			 	console.log( "currentUser", currentUser );
-			 	
-			 	let date = new Date();
-				let utcDate = date.toUTCString();
-				console.log( "utcDate", utcDate );
+					messageObject =
+					{
+						"id" : (userMessages.length),
+						"user" : currentUser,
+						"message" : inputText,
+						"timestamp": utcDate
+					}
+					
+				 	userMessages.push(messageObject);
 
-				messageObject = 
-				{
-					"id" : (userMessages.length + 1),
-					"user" : currentUser,
-					"message" : inputText,
-					"timestamp": utcDate
-				}
-				console.log( "messageObject", messageObject );
-			 	
-			 	
-
-			 	userMessages.push(messageObject);
-
-			 	// console.log( "userMessages", userMessages );
 			 		for (let i = 0; i < userMessages.length; i++) {
 						messageStructure = `<div id="${i}">
 												<h4>${userMessages[i].user}</h4>
@@ -53,22 +50,28 @@ console.log("main.js loaded");
 												<p>${userMessages[i].timestamp}</p>
 												<p>
 												Message #${i + 1}
-												<p>
-												</div>
-												<button type="button">Delete</button>`;
-
-				
+												</p>
+												<button type="button" class="deleteBtn">Delete</button>
+			                  </div>`;
 					};
 
-				}
+					outputDiv.innerHTML += messageStructure;
+					inputArea.value="";
+    		}
+		}			
+ });
 
-				outputDiv.innerHTML += messageStructure;
-				inputArea.value="";
-		    }
-	    });
 
-    }
-	Chatty.addReturnButton(inputArea);
+
+  Chatty.getUserMessagesArr = () => {
+    return userMessages
+  }
+
+  Chatty.updateUserMessagesArray = (newArray) => {
+    userMessages = newArray;
+    console.log(userMessages);
+  }
+
 }
 //////////////////////////////////////////////////////
 {
@@ -133,10 +136,3 @@ themeSave.addEventListener("click", (event) => {
 	body.style.backgroundColor = bgColor.value;
 	nav.style.backgroundColor = bgColor.value;
 });
-
-
-
-
-
-
-
