@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Chatty Cathy</title>
-	<meta charset="utf-8">
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>Chatty Cathy</title>
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body id="body">
   <nav id="nav" class="navbar navbar-default navbar-fixed-top">
@@ -19,37 +19,19 @@
       <div class="col-md-7 col-lg-7 input-box">
           <form class="navbar-form navbar-left">
               <div id="users-radio">
-              
               </div>
                 <div class="form-group input-group">
                 <input id="messages-input" size="75" autofocus="autofocus" type="text" class="form-control" placeholder="Type messages here...">
                 <span id="clear-btn" type="submit" class="btn btn-default input-group-addon">Clear</span>
                 </div>
-
                 </form>
-          </div>
-
-          <div class="col-md-4">
-            <button id="clear-btn" type="submit" class="btn btn-default">Clear</button>
-
-          </div>
         </div>
-        <div class="row">
-
-        
-
         <!-- Removing checkboxes and adding modal to choose theme -->
-        	<div class="col-md-3 col-lg-3 theme-btn">
-        	<!-- Modal Trigger Button -->
-        	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Change Theme</button>
-
-        	</div>
-
+            <div class="col-md-3 col-lg-3 theme-btn">
+            <!-- Modal Trigger Button -->
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Change Theme</button>
+            </div>
           </nav>
-
-
-
-
           <!-- <div class="col-md-2">
             <input type="checkbox" id="dark-theme"> Dark Theme
           </div>
@@ -61,49 +43,33 @@
         </div>
   </nav>
 <main class="container">
-
-	<!-- Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
-	  <div class="modal-dialog">
-
-	    <!-- Modal content-->
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Choose a custom color theme:</h4>
-	      </div>
-	      <div class="modal-body">
-	        <h3>Background Color:</h3>
-	        <input type="color" id="bg-color" value="#333333">
-	        <h3>Font Color:</h3>
-	        <input type="color" id="font-color" value="#cccccc">
-	      </div>
-	      <div class="modal-footer">
-	      	<button id="theme-default" type="button" class="btn btn-default pull-left" data-dismiss="modal">Revert To Default</button>
-	      	<button id="theme-save" type="button" class="btn btn-default" data-dismiss="modal">Save</button>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-	      </div>
-	    </div>
-
-	  </div>
-	</div>
-
-	<div class="col-lg-12" id="message-box">
-		<div class=>MESSAGES HERE</div>
-	</div>
-
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Choose a custom color theme:</h4>
+          </div>
+          <div class="modal-body">
+            <h3>Background Color:</h3>
+            <input type="color" id="bg-color" value="#333333">
+            <h3>Font Color:</h3>
+            <input type="color" id="font-color" value="#cccccc">
+          </div>
+          <div class="modal-footer">
+            <button id="theme-default" type="button" class="btn btn-default pull-left" data-dismiss="modal">Revert To Default</button>
+            <button id="theme-save" type="button" class="btn btn-default" data-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12" id="message-box">
+        <div class=>MESSAGES HERE</div>
+    </div>
 </main>
-
-
-
-
-
-
-
-
-
-
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script type="text/javascript" src="javascripts/loader.js"></script>
@@ -111,6 +77,5 @@
 <script type="text/javascript" src="javascripts/messages.js"></script>
 <script type="text/javascript" src="javascripts/main.js"></script>
 <script type="text/javascript" src="javascripts/remove.js"></script>
-
 </body>
 </html>

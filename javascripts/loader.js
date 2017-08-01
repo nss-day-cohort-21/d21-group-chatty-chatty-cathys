@@ -40,6 +40,7 @@
 
 
       messageStructure = `<div id="${i}">
+                    <img src="../images/${messages[i].user}.jpg" class="user_image">
                     <h4>${messages[i].user}</h4>
                     <p>${messages[i].message}</p>
                     <p>${messages[i].timestamp}</p>
