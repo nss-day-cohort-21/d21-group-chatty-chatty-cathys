@@ -20,13 +20,15 @@
 
 $("#messages-input").unbind().keypress((event) =>{
 	if (event.keyCode === 13) {
+    if (userMessages.length > 19) {
+      userMessages.shift();
+    }
 	 	event.preventDefault();
 	 	// console.log( "return was pressed" );
 	 	let inputText = inputArea.value;
 	 	let date = new Date();
 		let utcDate = date.toUTCString();
 		// console.log( "utcDate", utcDate );
-
 		messageObject =
 		{
 			"id" : (userMessages.length),
@@ -35,29 +37,27 @@ $("#messages-input").unbind().keypress((event) =>{
 			"timestamp": utcDate
 		}
 		// console.log( "messageObject", messageObject );
-
-
 	 	userMessages.push(messageObject);
-
     // sole.log( "userMessages", userMessages );
+    outputDiv.innerHTML = '';
  		for (let i = 0; i < userMessages.length; i++) {
-			messageStructure = `<div id="${i}">
-									<h4>${userMessages[i].user}</h4>
-									<p>${userMessages[i].message}</p>
-									<p>${userMessages[i].timestamp}</p>
-									<p>
-									Message #${i + 1}
-									</p>
-									<button type="button" class="deleteBtn">Delete</button>
-                  </div>`;
+      let messageDiv = document.createElement("div");
+      messageDiv.id = i;
+			messageStructure =
+                        `<h4>${userMessages[i].user}</h4>
+      									<p>${userMessages[i].message}</p>
+      									<p>${userMessages[i].timestamp}</p>
+      									<p>
+      									Message #${i + 1}
+      									</p>
+      									<button type="button" class="deleteBtn">Delete</button>`;
+      messageDiv.innerHTML = messageStructure;
+      outputDiv.appendChild(messageDiv);
 		};
 
-		outputDiv.innerHTML += messageStructure;
 		inputArea.value="";
     }
   });
-
-
 
   Chatty.getUserMessagesArr = () => {
     return userMessages
@@ -65,7 +65,6 @@ $("#messages-input").unbind().keypress((event) =>{
 
   Chatty.updateUserMessagesArray = (newArray) => {
     userMessages = newArray;
-    console.log(userMessages);
   }
 
 }
