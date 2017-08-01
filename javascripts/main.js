@@ -83,24 +83,27 @@
             let messageDiv = document.createElement("div");
             messageDiv.id = i;
 
-            let editBtn = document.createElement("button");
-            editBtn.id = `editBtn${i}`;
-            editBtn.innerHTML = "Edit";
+            // let editBtn = document.createElement("button");
+            // editBtn.id = `editBtn${i}`;
+            // editBtn.className = "editBtn";
+            // editBtn.innerHTML = "";
 
             messageStructure =
                               `<div class="${userMessages[i].user} msgDefault">
                               <img src="../images/${userMessages[i].user}.jpg" class="user_image">
-                              <h4>${userMessages[i].user}</h4>
-                              <p>${userMessages[i].message}</p>
-                              <p>${userMessages[i].timestamp}</p>
-                              <p>
+                              <h4 class="username">${userMessages[i].user}</h4>
+                              <p class="msg">${userMessages[i].message}</p>
+                              <p class="date">${userMessages[i].timestamp}</p>
+                              <p class="msgNumber">
                               Message #${i + 1}
                               </p>
+                              <button type="button" id="editBtn${i}" class="editBtn"></button>
                               <button type="button" class="deleteBtn">X</button>
                               </div>
                               `;
             messageDiv.innerHTML = messageStructure;
-            messageDiv.appendChild(editBtn);
+
+            //messageDiv.appendChild(editBtn);
             $("#message-box").prepend(messageDiv);
 
             let thisEditButton = document.getElementById(`editBtn${i}`);
@@ -128,24 +131,28 @@
       let messageDiv = document.createElement("div");
       messageDiv.id = i;
 
-      let editBtn = document.createElement("button");
-      editBtn.id = `editBtn${i}`;
-      editBtn.innerHTML = "Edit";
+      // let editBtn = document.createElement("button");
+      // editBtn.id = `editBtn${i}`;
+      // editBtn.className = "editBtn";
+      // editBtn.innerHTML = "";
 
       messageStructure =
                         `<div class="${userMessages[i].user} msgDefault">
                               <img src="../images/${userMessages[i].user}.jpg" class="user_image">
-                        <h4>${userMessages[i].user}</h4>
-                        <p>${userMessages[i].message}</p>
-                        <p>${userMessages[i].timestamp}</p>
-                        <p>
+                        <h4 class="username">${userMessages[i].user}</h4>
+                        <p class="msg">${userMessages[i].message}</p>
+                        <p class="date">${userMessages[i].timestamp}</p>
+                        <p class="msgNumber">
                         Message #${i + 1}
                         </p>
+                        <button type="button" id="editBtn${i}" class="editBtn"></button>
                         <button type="button" class="deleteBtn">X</button>
                         </div>
                         `;
       messageDiv.innerHTML = messageStructure;
-      messageDiv.appendChild(editBtn);
+
+      outputDiv.appendChild(messageDiv);
+     // messageDiv.appendChild(editBtn);
       $("#message-box").prepend(messageDiv);
 
       let thisEditButton = document.getElementById(`editBtn${i}`);
@@ -166,23 +173,25 @@
       messageDiv.classList.add(`${userMessages[i].user}`);
       messageDiv.classList.add("msgDefault")
 
-      let editBtn = document.createElement("button");
-      editBtn.id = `editBtn${i}`;
-      editBtn.innerHTML = "Edit";
+      // let editBtn = document.createElement("button");
+      // editBtn.id = `editBtn${i}`;
+      // editBtn.className = "editBtn";
+      // editBtn.innerHTML = "";
 
       messageStructure =
                         `<div>
                         <img src="../images/${userMessages[i].user}.jpg" class="user_image">
-                        <h4>${userMessages[i].user}</h4>
-                        <p>${userMessages[i].message}</p>
-                        <p>${userMessages[i].timestamp}</p>
-                        <p>
+                        <h4 class="username">${userMessages[i].user}</h4>
+                        <p class="msg">${userMessages[i].message}</p>
+                        <p class="date">${userMessages[i].timestamp}</p>
+                        <p class="msgNumber">
                         Message #${i + 1}
                         </p>
+                        <button type="button" id="editBtn${i}" class="editBtn"></button>
                         <button type="button" class="deleteBtn">X</button>
                         </div>`;
       messageDiv.innerHTML = messageStructure;
-      messageDiv.appendChild(editBtn);
+      // messageDiv.appendChild(editBtn);
       console.log(messageDiv);
       console.log(outputDiv);
       $("#message-box").prepend(messageDiv);
