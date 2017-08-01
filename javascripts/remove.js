@@ -20,10 +20,9 @@
     messageBox.innerHTML = '';
   }
 
-  Chatty.findIndex = (data, property, value) => {
-    for(var i = 0, l = data.length ; i < l ; i++) {
-      if(data[i][property] === value) {
-        console.log(i);
+  Chatty.findIndex = (array, property, value) => {
+    for(var i = 0, l = array.length ; i < l ; i++) {
+      if(array[i][property] === value) {
         return i;
       }
     }
