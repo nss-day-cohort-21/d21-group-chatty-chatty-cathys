@@ -24,7 +24,7 @@
 	let messageStructure;
 	let messageObject = {};
 
-<<<<<<< Updated upstream
+
   $("#messages-input").unbind().keypress((event) =>{
   	if (event.keyCode === 13) {
       if (userMessages.length > 19) {
@@ -50,7 +50,8 @@
   						"timestamp": utcDate
   					}
 
-  				 	userMessages.push(messageObject);
+  					userMessages.push(messageObject);
+  					
             outputDiv.innerHTML = '';
             for (let i = 0; i < userMessages.length; i++) {
               let messageDiv = document.createElement("div");
