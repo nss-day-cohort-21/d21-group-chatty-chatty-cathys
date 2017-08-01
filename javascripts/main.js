@@ -66,7 +66,7 @@
                                 </p>
                                 <button type="button" class="deleteBtn">Delete</button>`;
               messageDiv.innerHTML = messageStructure;
-              outputDiv.appendChild(messageDiv);
+              $(outputDiv).prepend(messageDiv)
             };
 
             inputArea.value="";

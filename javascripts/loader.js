@@ -49,7 +49,7 @@
                     </p>
                     <button type="button" class="deleteBtn">Delete</button>
                     </div>`;
-      messageBox.innerHTML += messageStructure;
+                    $(messageBox).prepend(messageStructure)
       };
 
     }
