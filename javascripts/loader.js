@@ -18,7 +18,11 @@
   }
 
   Chatty.pushJSON = (message) => {
-    messagesArray.push(message);
+    for (var i = 0; i < message.length; i++) {
+      let eachMessage = message[i]
+      messagesArray.push(eachMessage);
+    }
+
   }
 
   Chatty.returnJSON = () => {
@@ -28,30 +32,17 @@
 
 
 
-{
-  let messageBox = document.getElementById("message-box"); //get message display area
-  let jsonMessages; // store current json message
-  Chatty.getMessages = function(messages) {
-    for (var i = 0; i < messages.length; i++) {
+// {
+//   let messageBox = document.getElementById("message-box"); //get message display area
+//   let jsonMessages; // store current json message
+//   Chatty.getMessages = function(messages) {
+//     for (var i = 0; i < messages.length; i++) {
+//
+//       jsonMessages = messages[i];
+//
+//       Chatty.pushJSON(jsonMessages);
+//
+//     }
+// }
 
-      jsonMessages = messages[i];
-
-      Chatty.pushJSON(jsonMessages);
-
-
-      messageStructure = `<div id="${i}">
-                    <h4>${messages[i].user}</h4>
-                    <p>${messages[i].message}</p>
-                    <p>${messages[i].timestamp}</p>
-                    <p>
-                    Message #${i + 1}
-                    </p>
-                    <button type="button" class="deleteBtn">Delete</button>
-                    </div>`;
-      messageBox.innerHTML += messageStructure;
-      };
-
-    }
-}
-
-Chatty.loadJSON(Chatty.getMessages);
+Chatty.loadJSON(Chatty.pushJSON);

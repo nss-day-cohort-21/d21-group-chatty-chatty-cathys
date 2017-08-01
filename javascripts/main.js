@@ -19,56 +19,25 @@
     userMessages.push(thisMessage);
   }
 
+
 	let inputArea = document.getElementById("messages-input");
 	let outputDiv = document.getElementById("message-box");
 	let messageStructure;
 	let messageObject = {};
+  let isEditing = false;
+  let divToEdit;
+  $("#messages-input").keypress((event) =>{
+    if (event.keyCode === 13 && isEditing === true) {
+      Chatty.editMessage();
 
-  $("#messages-input").unbind().keypress((event) =>{
-  	if (event.keyCode === 13) {
+    } else if (event.keyCode === 13 && isEditing === false) {
       if (userMessages.length > 19) {
         userMessages.shift();
       }
-  	 	event.preventDefault();
 
-  	 	let inputText = inputArea.value;
-  	 	let date = new Date();
-  		let utcDate = date.toLocaleString();
-  		var currentUser = document.querySelector('input[name = "user"]:checked').value;
-  		if (currentUser === "" || inputText==="") {
-
-  					alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
-
-  		}  else  {
-
-  					messageObject =
-  					{
-  						"id" : (userMessages.length),
-  						"user" : currentUser,
-  						"message" : inputText,
-  						"timestamp": utcDate
-  					}
-
-  				 	userMessages.push(messageObject);
-            outputDiv.innerHTML = '';
-            for (let i = 0; i < userMessages.length; i++) {
-              let messageDiv = document.createElement("div");
-              messageDiv.id = i;
-              messageStructure =
-                                `<h4>${userMessages[i].user}</h4>
-                                <p>${userMessages[i].message}</p>
-                                <p>${userMessages[i].timestamp}</p>
-                                <p>
-                                Message #${i + 1}
-                                </p>
-                                <button type="button" class="deleteBtn">Delete</button>`;
-              messageDiv.innerHTML = messageStructure;
-              outputDiv.appendChild(messageDiv);
-            };
-
-            inputArea.value="";
-      }
-  }});
+      Chatty.createNewMessage();
+    }
+  });
 
   Chatty.getUserMessagesArr = () => {
     return userMessages
@@ -78,8 +47,148 @@
     userMessages = newArray;
   }
 
+  Chatty.changeInputToEdit = (text, div) => {
+    isEditing = true;
+    inputArea.value = text;
+    divToEdit = div;
+    inputArea.focus();
+  }
+
+  Chatty.createNewMessage = () => {
+    event.preventDefault();
+
+    let inputText = inputArea.value;
+    let date = new Date();
+    let utcDate = date.toLocaleString();
+    var currentUser = document.querySelector('input[name = "user"]:checked').value;
+    console.log(inputText);
+    console.log(currentUser);
+    if (currentUser === "" || inputText==="") {
+
+          alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
+
+    }  else  {
+
+          messageObject =
+          {
+            "id" : (userMessages.length),
+            "user" : currentUser,
+            "message" : inputText,
+            "timestamp": utcDate
+          }
+
+          userMessages.push(messageObject);
+          outputDiv.innerHTML = '';
+          for (let i = 0; i < userMessages.length; i++) {
+            let messageDiv = document.createElement("div");
+            messageDiv.id = i;
+
+            let editBtn = document.createElement("button");
+            editBtn.id = `editBtn${i}`;
+            editBtn.innerHTML = "Edit";
+
+            messageStructure =
+                              `<h4>${userMessages[i].user}</h4>
+                              <p>${userMessages[i].message}</p>
+                              <p>${userMessages[i].timestamp}</p>
+                              <p>
+                              Message #${i + 1}
+                              </p>
+                              <button type="button" class="deleteBtn">Delete</button>
+                              `;
+            messageDiv.innerHTML = messageStructure;
+            messageDiv.appendChild(editBtn);
+            outputDiv.appendChild(messageDiv);
+
+            let thisEditButton = document.getElementById(`editBtn${i}`);
+            thisEditButton.addEventListener("click", function(e) {
+              let editedText = userMessages[i].message;
+              let editedTextDiv = e.target.parentNode;
+              Chatty.changeInputToEdit(editedText, editedTextDiv);
+            })
+          };
+
+          inputArea.value="";
+    }
+
+
+  }
+
+  Chatty.editMessage = () => {
+    let inputText = inputArea.value;
+
+    let indexOfDiv = Chatty.findIndex(userMessages, "id", Number(divToEdit.id));
+    userMessages[indexOfDiv]["message"] = inputText;
+    isEditing = false;
+    outputDiv.innerHTML = '';
+    for (let i = 0; i < userMessages.length; i++) {
+      let messageDiv = document.createElement("div");
+      messageDiv.id = i;
+
+      let editBtn = document.createElement("button");
+      editBtn.id = `editBtn${i}`;
+      editBtn.innerHTML = "Edit";
+
+      messageStructure =
+                        `<h4>${userMessages[i].user}</h4>
+                        <p>${userMessages[i].message}</p>
+                        <p>${userMessages[i].timestamp}</p>
+                        <p>
+                        Message #${i + 1}
+                        </p>
+                        <button type="button" class="deleteBtn">Delete</button>
+                        `;
+      messageDiv.innerHTML = messageStructure;
+      messageDiv.appendChild(editBtn);
+      outputDiv.appendChild(messageDiv);
+
+      let thisEditButton = document.getElementById(`editBtn${i}`);
+      thisEditButton.addEventListener("click", function(e) {
+        let editedText = userMessages[i].message;
+        let editedTextDiv = e.target.parentNode;
+        Chatty.changeInputToEdit(editedText, editedTextDiv);
+      })
+    };
+    inputArea.value = '';
+  }
+
+  Chatty.loadJSONToDOM = () => {
+    console.log(userMessages);
+    for (let i = 0; i < userMessages.length; i++) {
+      let messageDiv = document.createElement("div");
+      messageDiv.id = i;
+
+      let editBtn = document.createElement("button");
+      editBtn.id = `editBtn${i}`;
+      editBtn.innerHTML = "Edit";
+
+      messageStructure =
+                        `<h4>${userMessages[i].user}</h4>
+                        <p>${userMessages[i].message}</p>
+                        <p>${userMessages[i].timestamp}</p>
+                        <p>
+                        Message #${i + 1}
+                        </p>
+                        <button type="button" class="deleteBtn">Delete</button>
+                        `;
+      messageDiv.innerHTML = messageStructure;
+      messageDiv.appendChild(editBtn);
+      outputDiv.appendChild(messageDiv);
+
+      let thisEditButton = document.getElementById(`editBtn${i}`);
+      thisEditButton.addEventListener("click", function(e) {
+        let editedText = userMessages[i].message;
+        let editedTextDiv = e.target.parentNode;
+        Chatty.changeInputToEdit(editedText, editedTextDiv);
+      })
+    };
+    inputArea.value = '';
+  }
+
+  Chatty.loadJSONToDOM();
 }
 //////////////////////////////////////////////////////
+console.log("hello");
 {
 	let users = { "names": ["Ronnie", "James", "Bruce", "Gene", "Dave"]};
 	let userSelectDiv = document.getElementById("users-radio");
