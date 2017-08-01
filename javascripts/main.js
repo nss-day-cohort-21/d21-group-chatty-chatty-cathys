@@ -57,14 +57,16 @@
               let messageDiv = document.createElement("div");
               messageDiv.id = i;
               messageStructure =
-                                `<img src="../images/${userMessages[i].user}.jpg" class="user_image">
-                                <h4>${userMessages[i].user}</h4>
-                                <p>${userMessages[i].message}</p>
-                                <p>${userMessages[i].timestamp}</p>
-                                <p>
+                                `<div class="${userMessages[i].user} msgDefault">
+                                <img src="../images/${userMessages[i].user}.jpg" class="user_image">
+                                <h4 class="username">${userMessages[i].user}</h4>
+                                <p class="msg">${userMessages[i].message}</p>
+                                <p class="date">${userMessages[i].timestamp}</p>
+                                <p class="msgNumber">
                                 Message #${i + 1}
                                 </p>
-                                <button type="button" class="deleteBtn">Delete</button>`;
+                                <button type="button" class="deleteBtn">X</button>
+                                </div>`;
               messageDiv.innerHTML = messageStructure;
               $(outputDiv).prepend(messageDiv)
             };
