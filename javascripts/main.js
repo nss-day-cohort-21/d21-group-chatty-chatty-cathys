@@ -72,30 +72,55 @@
 }
 
 
-// Checkboxes change theme
+// Checkboxes change theme -- Abandoned in favor of Modal Theme Chooser
 
-var darkThemeBox = document.getElementById("dark-theme");
-var largeTextBox = document.getElementById("large-text");
+// var darkThemeBox = document.getElementById("dark-theme");
+// var largeTextBox = document.getElementById("large-text");
+// var body = document.getElementById("body");
+// var nav = document.getElementById("nav");
+
+
+// darkThemeBox.addEventListener("change", (event) => {
+// 	if(darkThemeBox.checked === true) {
+// 		body.classList.add("dark-theme");
+// 		nav.classList.add("dark-theme");
+// 	} else {
+// 		body.classList.remove("dark-theme");
+// 		nav.classList.remove("dark-theme");
+// 	}
+
+// });
+
+// largeTextBox.addEventListener("change", (event) => {
+// 	if(largeTextBox.checked === true) {
+// 		messageBox.classList.add("large-text");
+// 	} else {
+// 		messageBox.classList.remove("large-text");
+// 	}
+
+// });
+
+
+// Modal Theme Chooser
+
 var body = document.getElementById("body");
 var nav = document.getElementById("nav");
-var messageBox = document.getElementById("message-box");
 
-darkThemeBox.addEventListener("change", (event) => {
-	if(darkThemeBox.checked === true) {
-		body.classList.add("dark-theme");
-		nav.classList.add("dark-theme");
-	} else {
-		body.classList.remove("dark-theme");
-		nav.classList.remove("dark-theme");
-	}
+var bgColor = document.getElementById("bg-color");
+var fontColor = document.getElementById("font-color");
+var themeSave = document.getElementById("theme-save");
 
+themeSave.addEventListener("click", (event) => {
+	body.style.color = fontColor.value;
+	nav.style.color = fontColor.value;
+	body.style.backgroundColor = bgColor.value;
+	nav.style.backgroundColor = bgColor.value;
 });
 
-largeTextBox.addEventListener("change", (event) => {
-	if(largeTextBox.checked === true) {
-		messageBox.classList.add("large-text");
-	} else {
-		messageBox.classList.remove("large-text");
-	}
 
-});
+
+
+
+
+
+
