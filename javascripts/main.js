@@ -1,8 +1,16 @@
 // console.log("main.js loaded");
 
-//MAIN TEXT AREA FUNCTION//
-
 {
+
+
+  let radios = document.getElementById("users-radio");
+  // console.log( "radios", radios );
+  radios.addEventListener("click", (event) => {
+  	inputArea.focus();
+});
+
+
+
   let thisMessage;
   let eachJSONMessage = Chatty.returnJSON();
   let userMessages = [];
@@ -19,14 +27,11 @@
 $("#messages-input").unbind().keypress((event) =>{
 	if (event.keyCode === 13) {
 	 	event.preventDefault();
-	 	// console.log( "return was pressed" );
 	 	
 	 	let inputText = inputArea.value;
 	 	let date = new Date();
-		let utcDate = date.toUTCString();
-		let currentUser = document.querySelector('input[name = "user"]:checked').value
-		console.log( "currentUser", currentUser );
-		// console.log( "utcDate", utcDate );
+		let utcDate = date.toLocaleString();
+		var currentUser = document.querySelector('input[name = "user"]:checked').value;
 		if (currentUser === "" || inputText==="") {
 
 					alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
@@ -75,7 +80,7 @@ $("#messages-input").unbind().keypress((event) =>{
 }
 //////////////////////////////////////////////////////
 {
-	let users = { "names": ["Axl", "Brett", "Paul", "Ozzy", "Klaus"]};
+	let users = { "names": ["Ronnie", "James", "Bruce", "Gene", "Dave"]};
 	let userSelectDiv = document.getElementById("users-radio");
 	userSelectDiv.innerHTML = `<input type="radio" name="user" id="radio--defalut"" value="" checked>Select A User</input>`
 	Chatty.userSelect = ()=> {
@@ -90,6 +95,8 @@ $("#messages-input").unbind().keypress((event) =>{
 	}
 	Chatty.userSelect()
 }
+
+
 
 
 // Checkboxes change theme -- Abandoned in favor of Modal Theme Chooser
