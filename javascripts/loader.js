@@ -39,15 +39,17 @@
       Chatty.pushJSON(jsonMessages);
 
 
-      messageStructure = `<div id="${i}">
+      messageStructure = `<div id="${i}" class="${messages[i].user} msgDefault">
+                    <div>
                     <img src="../images/${messages[i].user}.jpg" class="user_image">
-                    <h4>${messages[i].user}</h4>
-                    <p>${messages[i].message}</p>
-                    <p>${messages[i].timestamp}</p>
-                    <p>
+                    <h4 class="username">${messages[i].user}</h4>
+                    <p class="msg">${messages[i].message}</p>
+                    <p class="date">${messages[i].timestamp}</p>
+                    <p class="msgNumber">
                     Message #${i + 1}
                     </p>
-                    <button type="button" class="deleteBtn">Delete</button>
+                    <button type="button" class="deleteBtn">X</button>
+                    </div>
                     </div>`;
       messageBox.innerHTML += messageStructure;
       };
