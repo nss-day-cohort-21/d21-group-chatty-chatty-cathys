@@ -20,29 +20,27 @@
 	margin: 20px 0;
 }
 
-/*a.navbar-brand {
-	
-	height: 15vh;
-	margin: 0 auto;
-}
-*/
-/*.navbar-brand {
-    padding: 15px 0;
-    font-size: 18px;
-    line-height: 20px;
-}*/
-
-.dark-theme {
+/*.dark-theme {
 	background-color: #333333;
 	color: #cccccc;
 }
 
 .large-text {
 	font-size: 1.75em;
-}
+}*/
 .brand-img {
 	min-height: 58px;
 }
+#users-radio{
+	margin-bottom: 10px;
+    margin-left: 50px;
+}
+
+
+input[type=checkbox], input[type=radio] {
+    margin: 4px 8px 0;
+    margin-top: 1px\9;
+    line-height: normal;
 
 
 .user_image {
@@ -51,10 +49,6 @@
 	border-radius: 20%;
 }
 
-input[type="radio"] {
-	margin-left: 1em;
-	margin-right: .2em;
-}
 
 
 /* Extra small devices (phones, less than 768px) */
