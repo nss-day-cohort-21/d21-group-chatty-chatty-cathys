@@ -44,6 +44,11 @@
 	min-height: 58px;
 }
 
+input[type="radio"] {
+	margin-left: 1em;
+	margin-right: .2em;
+}
+
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
@@ -68,5 +73,5 @@ nav {
 nav {
 	height: 95px;
 }
+}
 
- }
