@@ -1,9 +1,16 @@
-console.log("main.js loaded");
+// console.log("main.js loaded");
 
 //MAIN TEXT AREA FUNCTION//
 
 {
-	let userMessages = [];
+  let thisMessage;
+  let eachJSONMessage = Chatty.returnJSON();
+  let userMessages = [];
+  for (var i = 0; i < eachJSONMessage.length; i++) {
+    thisMessage = eachJSONMessage[i];
+    userMessages.push(thisMessage);
+  }
+
 	let inputArea = document.getElementById("messages-input");
 	let outputDiv = document.getElementById("message-box");
 	let messageStructure;
@@ -18,34 +25,31 @@ console.log("main.js loaded");
 			 	let inputText = inputArea.value;
 			 	let date = new Date();
 				let utcDate = date.toUTCString();
-				console.log( "utcDate", utcDate );
+				// console.log( "utcDate", utcDate );
 
-				messageObject = 
+				messageObject =
 				{
-					"id" : (userMessages.length + 1),
+					"id" : (userMessages.length),
 					"user" : "",
 					"message" : inputText,
 					"timestamp": utcDate
 				}
-				console.log( "messageObject", messageObject );
-			 	
-			 	
+				// console.log( "messageObject", messageObject );
+
 
 			 	userMessages.push(messageObject);
 
-			 	// console.log( "userMessages", userMessages );
-			 		for (let i = 0; i < userMessages.length; i++) {
-						messageStructure = `<div id="${i}">
-												<h4>${userMessages[i].user}</h4>
-												<p>${userMessages[i].message}</p>
-												<p>${userMessages[i].timestamp}</p>
-												<p>
-												Message #${i + 1}
-												<p>
-												</div>
-												<button type="button">Delete</button>`;
-
-				
+        // sole.log( "userMessages", userMessages );
+		 		for (let i = 0; i < userMessages.length; i++) {
+					messageStructure = `<div id="${i}">
+											<h4>${userMessages[i].user}</h4>
+											<p>${userMessages[i].message}</p>
+											<p>${userMessages[i].timestamp}</p>
+											<p>
+											Message #${i + 1}
+											</p>
+											<button type="button" class="deleteBtn">Delete</button>
+                      </div>`;
 				};
 
 				outputDiv.innerHTML += messageStructure;
@@ -55,6 +59,16 @@ console.log("main.js loaded");
 
     }
 	Chatty.addReturnButton(inputArea);
+
+  Chatty.getUserMessagesArr = () => {
+    return userMessages
+  }
+
+  Chatty.updateUserMessagesArray = (newArray) => {
+    userMessages = newArray;
+    console.log(userMessages);
+  }
+
 }
 
 
@@ -102,6 +116,7 @@ themeSave.addEventListener("click", (event) => {
 	body.style.backgroundColor = bgColor.value;
 	nav.style.backgroundColor = bgColor.value;
 });
+
 
 
 
