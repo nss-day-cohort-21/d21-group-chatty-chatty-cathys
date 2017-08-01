@@ -3,8 +3,8 @@
   let body = document.querySelector("body");
   let clearBTN = document.getElementById("clear-btn");
   let messageBox = document.getElementById("message-box");
-  
-  body.addEventListener("click", function(e) {
+
+  messageBox.addEventListener("click", function(e) {
     if (e.target.className === "deleteBtn") {
       let currentMessagesArr = Chatty.getUserMessagesArr();
       let index = Chatty.findIndex(currentMessagesArr, "id", Number(e.target.parentNode.id));
