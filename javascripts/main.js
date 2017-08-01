@@ -1,8 +1,16 @@
 // console.log("main.js loaded");
 
-//MAIN TEXT AREA FUNCTION//
-
 {
+
+
+  let radios = document.getElementById("users-radio");
+  // console.log( "radios", radios );
+  radios.addEventListener("click", (event) => {
+  	inputArea.focus();
+});
+
+
+
   let thisMessage;
   let eachJSONMessage = Chatty.returnJSON();
   let userMessages = [];
@@ -15,47 +23,48 @@
 	let outputDiv = document.getElementById("message-box");
 	let messageStructure;
 	let messageObject = {};
-	// console.log( "userText", userText );
-
 
 $("#messages-input").unbind().keypress((event) =>{
 	if (event.keyCode === 13) {
 	 	event.preventDefault();
-	 	// console.log( "return was pressed" );
+	 	
 	 	let inputText = inputArea.value;
 	 	let date = new Date();
-		let utcDate = date.toUTCString();
-		// console.log( "utcDate", utcDate );
+		let utcDate = date.toLocaleString();
+		var currentUser = document.querySelector('input[name = "user"]:checked').value;
+		if (currentUser === "" || inputText==="") {
 
-		messageObject =
-		{
-			"id" : (userMessages.length),
-			"user" : "",
-			"message" : inputText,
-			"timestamp": utcDate
-		}
-		// console.log( "messageObject", messageObject );
+					alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
 
+		}  else  {
 
-	 	userMessages.push(messageObject);
+					messageObject =
+					{
+						"id" : (userMessages.length),
+						"user" : currentUser,
+						"message" : inputText,
+						"timestamp": utcDate
+					}
+					
+				 	userMessages.push(messageObject);
 
-    // sole.log( "userMessages", userMessages );
- 		for (let i = 0; i < userMessages.length; i++) {
-			messageStructure = `<div id="${i}">
-									<h4>${userMessages[i].user}</h4>
-									<p>${userMessages[i].message}</p>
-									<p>${userMessages[i].timestamp}</p>
-									<p>
-									Message #${i + 1}
-									</p>
-									<button type="button" class="deleteBtn">Delete</button>
-                  </div>`;
-		};
+			 		for (let i = 0; i < userMessages.length; i++) {
+						messageStructure = `<div id="${i}">
+												<h4>${userMessages[i].user}</h4>
+												<p>${userMessages[i].message}</p>
+												<p>${userMessages[i].timestamp}</p>
+												<p>
+												Message #${i + 1}
+												</p>
+												<button type="button" class="deleteBtn">Delete</button>
+			                  </div>`;
+					};
 
-		outputDiv.innerHTML += messageStructure;
-		inputArea.value="";
-    }
-  });
+					outputDiv.innerHTML += messageStructure;
+					inputArea.value="";
+    		}
+		}			
+ });
 
 
 
@@ -69,6 +78,25 @@ $("#messages-input").unbind().keypress((event) =>{
   }
 
 }
+//////////////////////////////////////////////////////
+{
+	let users = { "names": ["Ronnie", "James", "Bruce", "Gene", "Dave"]};
+	let userSelectDiv = document.getElementById("users-radio");
+	userSelectDiv.innerHTML = `<input type="radio" name="user" id="radio--defalut"" value="" checked>Select A User</input>`
+	Chatty.userSelect = ()=> {
+		for (let i = 0; i < users.names.length; i++) {
+		let name = users.names[i];
+		// console.log( "name", name );
+		let radioHTML = `<input type="radio" name="user" id="radio--${i}"" value="${name}">${name}</input>`
+		// console.log( "radioHTML", radioHTML );
+
+		userSelectDiv.innerHTML += radioHTML;
+		};
+	}
+	Chatty.userSelect()
+}
+
+
 
 
 // Checkboxes change theme -- Abandoned in favor of Modal Theme Chooser
