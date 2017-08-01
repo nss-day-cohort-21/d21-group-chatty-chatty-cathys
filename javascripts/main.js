@@ -108,6 +108,7 @@ var nav = document.getElementById("nav");
 var bgColor = document.getElementById("bg-color");
 var fontColor = document.getElementById("font-color");
 var themeSave = document.getElementById("theme-save");
+var themeDefault = document.getElementById("theme-default");
 
 themeSave.addEventListener("click", (event) => {
 	body.style.color = fontColor.value;
@@ -115,3 +116,14 @@ themeSave.addEventListener("click", (event) => {
 	body.style.backgroundColor = bgColor.value;
 	nav.style.backgroundColor = bgColor.value;
 });
+
+themeDefault.addEventListener("click", (event) => {
+	body.removeAttribute("style");
+	nav.removeAttribute("style");
+});
+
+
+
+
+
+
