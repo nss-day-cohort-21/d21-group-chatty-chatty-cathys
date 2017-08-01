@@ -3,23 +3,30 @@
   let body = document.querySelector("body");
   let clearBTN = document.getElementById("clear-btn");
   let messageBox = document.getElementById("message-box");
-  let divArr = [];
+  
   body.addEventListener("click", function(e) {
     if (e.target.className === "deleteBtn") {
+      let currentMessagesArr = Chatty.getUserMessagesArr();
+      let index = Chatty.findIndex(currentMessagesArr, "id", Number(e.target.parentNode.id));
+      currentMessagesArr.splice(index, 1);
+      Chatty.updateUserMessagesArray(currentMessagesArr);
       messageBox.removeChild(e.target.parentNode);
     }
-    console.log(e.target.parentNode.id);
-    let currentMessagesArr = Chatty.getUserMessagesArr();
-    console.log(currentMessagesArr);
   })
 
-
-
-
   Chatty.clearAll = function(){
-    emptyArr = [];
+    let clearArray = []
+    Chatty.updateUserMessagesArray(clearArray);
     messageBox.innerHTML = '';
-    Chatty.updateDom();
+  }
+
+  Chatty.findIndex = (data, property, value) => {
+    for(var i = 0, l = data.length ; i < l ; i++) {
+      if(data[i][property] === value) {
+        console.log(i);
+        return i;
+      }
+    }
   }
 
   clearBTN.addEventListener("click", Chatty.clearAll);

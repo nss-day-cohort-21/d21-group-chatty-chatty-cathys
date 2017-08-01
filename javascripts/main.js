@@ -4,16 +4,13 @@
 
 {
   let thisMessage;
-  console.log(Chatty.returnJSON());
   let eachJSONMessage = Chatty.returnJSON();
-  console.log(eachJSONMessage);
   let userMessages = [];
   for (var i = 0; i < eachJSONMessage.length; i++) {
     thisMessage = eachJSONMessage[i];
     userMessages.push(thisMessage);
-    console.log(userMessages);
   }
-  console.log(userMessages);
+
 	let inputArea = document.getElementById("messages-input");
 	let outputDiv = document.getElementById("message-box");
 	let messageStructure;
@@ -32,7 +29,7 @@
 
 				messageObject =
 				{
-					"id" : (userMessages.length + 1),
+					"id" : (userMessages.length),
 					"user" : "",
 					"message" : inputText,
 					"timestamp": utcDate
@@ -40,22 +37,19 @@
 				// console.log( "messageObject", messageObject );
 
 
-
 			 	userMessages.push(messageObject);
 
-			 	// console.log( "userMessages", userMessages );
-			 		for (let i = 0; i < userMessages.length; i++) {
-						messageStructure = `<div id="${i}">
-												<h4>${userMessages[i].user}</h4>
-												<p>${userMessages[i].message}</p>
-												<p>${userMessages[i].timestamp}</p>
-												<p>
-												Message #${i + 1}
-												</p>
-												<button type="button" class="deleteBtn">Delete</button>
-                        </div>`;
-
-
+        // sole.log( "userMessages", userMessages );
+		 		for (let i = 0; i < userMessages.length; i++) {
+					messageStructure = `<div id="${i}">
+											<h4>${userMessages[i].user}</h4>
+											<p>${userMessages[i].message}</p>
+											<p>${userMessages[i].timestamp}</p>
+											<p>
+											Message #${i + 1}
+											</p>
+											<button type="button" class="deleteBtn">Delete</button>
+                      </div>`;
 				};
 
 				outputDiv.innerHTML += messageStructure;
@@ -70,6 +64,10 @@
     return userMessages
   }
 
+  Chatty.updateUserMessagesArray = (newArray) => {
+    userMessages = newArray;
+    console.log(userMessages);
+  }
 
 }
 
