@@ -23,6 +23,7 @@
   Chatty.findIndex = (array, property, value) => {
     for(var i = 0, l = array.length ; i < l ; i++) {
       if(array[i][property] === value) {
+        console.log(i);
         return i;
       }
     }
