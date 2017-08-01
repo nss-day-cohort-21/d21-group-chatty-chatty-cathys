@@ -1,11 +1,10 @@
-#message-box {
-	margin: 200px auto;
-	border: 3px solid black;
-	border-radius: 15px;
-	width: 80%;
-	min-height: 100vh;
-}
+/*****************
+	Font
+******************
 
+font-family: 'Anonymous Pro', monospace;
+
+*******************/
 #clear-btn {
 	margin-top: 8px;
 }
@@ -20,14 +19,100 @@
 	margin: 20px 0;
 }
 
-/*.dark-theme {
-	background-color: #333333;
-	color: #cccccc;
+#message-box {
+	margin: 200px auto;
+	border: 3px solid black;
+	border-radius: 15px;
+	width: 80%;
+	min-height: 100vh;
 }
 
-.large-text {
-	font-size: 1.75em;
-}*/
+.msgDefault{
+	font-family: 'Anonymous Pro', monospace;
+	padding: 2px 20px;
+	min-height: 150px;
+	width: 100%;
+}
+
+.msgContainer{
+	display: flex;
+}
+
+.user_image {
+	width: 70px;
+	border: 1px solid black;
+	border-radius: 20%;
+	display: inline-flex;
+	margin-top: 10px;
+}
+.username{
+	font-size: 35px;
+	font-weight: 700;
+	margin: 10px 0 0 15px;
+	display: inline-flex;
+
+}
+
+.msg {
+	font-size: 19px;
+	font-weight: 400;
+	display: block;
+}
+p {
+	margin: 0;
+}
+.date {
+	font-size: 10px;
+	font-weight: 400;
+	display: inline-flex;
+}
+.msgNumber{
+	display:none
+}
+
+.deleteBtn {
+    color: white;
+    background-color: #ca1e26;
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    margin-left: 2px;
+    font-size: 0.7em;
+    padding-top: 2px;
+    float: right;
+}
+.editBtn {
+    color: white;
+    background-image: url(../images/edit.png);
+    background-color: green;
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+    margin-left: 2px;
+    font-size: 0.6em;
+    padding-top: 0px;
+}
+
+.Ronnie{
+	background-color: #C1D0D5;
+}
+
+.James{
+	background-color: #FAEBF5;
+}
+
+.Bruce{
+	background-color: #887560;
+}
+
+.Gene{
+	background-color: #D5CBC1;
+}
+
+.Dave{
+	background-color: #8CA6AD;
+}
+
 .brand-img {
 	min-height: 58px;
 }
@@ -36,17 +121,10 @@
     margin-left: 50px;
 }
 
-
 input[type=checkbox], input[type=radio] {
-    margin: 4px 8px 0;
+    margin: 4px 11px 0;
     margin-top: 1px\9;
     line-height: normal;
-
-
-.user_image {
-	width: 70px;
-	border: 1px solid black;
-	border-radius: 20%;
 }
 
 
