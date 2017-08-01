@@ -7,7 +7,7 @@
   // console.log( "radios", radios );
   radios.addEventListener("click", (event) => {
   	inputArea.focus();
-});
+  });
 
 
 
@@ -24,49 +24,51 @@
 	let messageStructure;
 	let messageObject = {};
 
-$("#messages-input").unbind().keypress((event) =>{
-	if (event.keyCode === 13) {
-	 	event.preventDefault();
-	 	
-	 	let inputText = inputArea.value;
-	 	let date = new Date();
-		let utcDate = date.toLocaleString();
-		var currentUser = document.querySelector('input[name = "user"]:checked').value;
-		if (currentUser === "" || inputText==="") {
+  $("#messages-input").unbind().keypress((event) =>{
+  	if (event.keyCode === 13) {
+      if (userMessages.length > 19) {
+        userMessages.shift();
+      }
+  	 	event.preventDefault();
 
-					alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
+  	 	let inputText = inputArea.value;
+  	 	let date = new Date();
+  		let utcDate = date.toLocaleString();
+  		var currentUser = document.querySelector('input[name = "user"]:checked').value;
+  		if (currentUser === "" || inputText==="") {
 
-		}  else  {
+  					alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
 
-					messageObject =
-					{
-						"id" : (userMessages.length),
-						"user" : currentUser,
-						"message" : inputText,
-						"timestamp": utcDate
-					}
-					
-				 	userMessages.push(messageObject);
+  		}  else  {
 
-			 		for (let i = 0; i < userMessages.length; i++) {
-						messageStructure = `<div id="${i}">
-												<h4>${userMessages[i].user}</h4>
-												<p>${userMessages[i].message}</p>
-												<p>${userMessages[i].timestamp}</p>
-												<p>
-												Message #${i + 1}
-												</p>
-												<button type="button" class="deleteBtn">Delete</button>
-			                  </div>`;
-					};
+  					messageObject =
+  					{
+  						"id" : (userMessages.length),
+  						"user" : currentUser,
+  						"message" : inputText,
+  						"timestamp": utcDate
+  					}
 
-					outputDiv.innerHTML += messageStructure;
-					inputArea.value="";
-    		}
-		}			
- });
+  				 	userMessages.push(messageObject);
+            outputDiv.innerHTML = '';
+            for (let i = 0; i < userMessages.length; i++) {
+              let messageDiv = document.createElement("div");
+              messageDiv.id = i;
+              messageStructure =
+                                `<h4>${userMessages[i].user}</h4>
+                                <p>${userMessages[i].message}</p>
+                                <p>${userMessages[i].timestamp}</p>
+                                <p>
+                                Message #${i + 1}
+                                </p>
+                                <button type="button" class="deleteBtn">Delete</button>`;
+              messageDiv.innerHTML = messageStructure;
+              outputDiv.appendChild(messageDiv);
+            };
 
-
+            inputArea.value="";
+      }
+  }});
 
   Chatty.getUserMessagesArr = () => {
     return userMessages
@@ -74,7 +76,6 @@ $("#messages-input").unbind().keypress((event) =>{
 
   Chatty.updateUserMessagesArray = (newArray) => {
     userMessages = newArray;
-    console.log(userMessages);
   }
 
 }
@@ -149,9 +150,3 @@ themeDefault.addEventListener("click", (event) => {
 	body.removeAttribute("style");
 	nav.removeAttribute("style");
 });
-
-
-
-
-
-
