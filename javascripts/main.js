@@ -88,13 +88,16 @@
             editBtn.innerHTML = "Edit";
 
             messageStructure =
-                              `<h4>${userMessages[i].user}</h4>
+                              `<div class="${userMessages[i].user} msgDefault">
+                              <img src="../images/${userMessages[i].user}.jpg" class="user_image">
+                              <h4>${userMessages[i].user}</h4>
                               <p>${userMessages[i].message}</p>
                               <p>${userMessages[i].timestamp}</p>
                               <p>
                               Message #${i + 1}
                               </p>
-                              <button type="button" class="deleteBtn">Delete</button>
+                              <button type="button" class="deleteBtn">X</button>
+                              </div>
                               `;
             messageDiv.innerHTML = messageStructure;
             messageDiv.appendChild(editBtn);
@@ -130,13 +133,16 @@
       editBtn.innerHTML = "Edit";
 
       messageStructure =
-                        `<h4>${userMessages[i].user}</h4>
+                        `<div class="${userMessages[i].user} msgDefault">
+                              <img src="../images/${userMessages[i].user}.jpg" class="user_image">
+                        <h4>${userMessages[i].user}</h4>
                         <p>${userMessages[i].message}</p>
                         <p>${userMessages[i].timestamp}</p>
                         <p>
                         Message #${i + 1}
                         </p>
-                        <button type="button" class="deleteBtn">Delete</button>
+                        <button type="button" class="deleteBtn">X</button>
+                        </div>
                         `;
       messageDiv.innerHTML = messageStructure;
       messageDiv.appendChild(editBtn);
@@ -157,22 +163,28 @@
     for (let i = 0; i < userMessages.length; i++) {
       let messageDiv = document.createElement("div");
       messageDiv.id = i;
+      messageDiv.classList.add(`${userMessages[i].user}`);
+      messageDiv.classList.add("msgDefault")
 
       let editBtn = document.createElement("button");
       editBtn.id = `editBtn${i}`;
       editBtn.innerHTML = "Edit";
 
       messageStructure =
-                        `<h4>${userMessages[i].user}</h4>
+                        `<div>
+                        <img src="../images/${userMessages[i].user}.jpg" class="user_image">
+                        <h4>${userMessages[i].user}</h4>
                         <p>${userMessages[i].message}</p>
                         <p>${userMessages[i].timestamp}</p>
                         <p>
                         Message #${i + 1}
                         </p>
-                        <button type="button" class="deleteBtn">Delete</button>
-                        `;
+                        <button type="button" class="deleteBtn">X</button>
+                        </div>`;
       messageDiv.innerHTML = messageStructure;
       messageDiv.appendChild(editBtn);
+      console.log(messageDiv);
+      console.log(outputDiv);
       outputDiv.appendChild(messageDiv);
 
       let thisEditButton = document.getElementById(`editBtn${i}`);
