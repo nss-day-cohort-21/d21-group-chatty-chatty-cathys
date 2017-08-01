@@ -10,12 +10,24 @@ console.log("main.js loaded");
 	let messageObject = {};
 	// console.log( "userText", userText );
 
+	
+	// console.log( "currentUser", currentUser );
+
 	Chatty.addReturnButton = (element) => {
 		element.addEventListener("keypress", (event) =>{
 			if (event.keyCode === 13) {
 			 	event.preventDefault();
-			 	// console.log( "return was pressed" );
-			 	let inputText = inputArea.value;
+				let currentUser = document.querySelector('input[name = "user"]:checked').value
+				let inputText = inputArea.value;
+
+				if (currentUser === "" || inputText==="") {
+
+					alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
+
+				}  else  {
+
+			 	console.log( "currentUser", currentUser );
+			 	
 			 	let date = new Date();
 				let utcDate = date.toUTCString();
 				console.log( "utcDate", utcDate );
@@ -23,7 +35,7 @@ console.log("main.js loaded");
 				messageObject = 
 				{
 					"id" : (userMessages.length + 1),
-					"user" : "",
+					"user" : currentUser,
 					"message" : inputText,
 					"timestamp": utcDate
 				}
@@ -46,7 +58,9 @@ console.log("main.js loaded");
 												<button type="button">Delete</button>`;
 
 				
-				};
+					};
+
+				}
 
 				outputDiv.innerHTML += messageStructure;
 				inputArea.value="";
@@ -55,6 +69,23 @@ console.log("main.js loaded");
 
     }
 	Chatty.addReturnButton(inputArea);
+}
+//////////////////////////////////////////////////////
+{
+	let users = { "names": ["Axl", "Brett", "Paul", "Ozzy", "Klaus"]};
+	let userSelectDiv = document.getElementById("users-radio");
+	userSelectDiv.innerHTML = `<input type="radio" name="user" id="radio--defalut"" value="" checked>Select A User</input>`
+	Chatty.userSelect = ()=> {
+		for (let i = 0; i < users.names.length; i++) {
+		let name = users.names[i];
+		// console.log( "name", name );
+		let radioHTML = `<input type="radio" name="user" id="radio--${i}"" value="${name}">${name}</input>`
+		// console.log( "radioHTML", radioHTML );
+
+		userSelectDiv.innerHTML += radioHTML;
+		};
+	}
+	Chatty.userSelect()
 }
 
 

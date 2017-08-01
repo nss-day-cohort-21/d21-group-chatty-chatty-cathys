@@ -40,3 +40,8 @@ a.navbar-brand {
 	font-size: 1.75em;
 }
 
+input[type="radio"] {
+	margin-left: 1em;
+	margin-right: .2em;
+}
+
