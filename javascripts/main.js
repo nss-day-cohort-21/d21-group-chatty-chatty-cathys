@@ -24,6 +24,7 @@
 	let messageStructure;
 	let messageObject = {};
 
+<<<<<<< Updated upstream
   $("#messages-input").unbind().keypress((event) =>{
   	if (event.keyCode === 13) {
       if (userMessages.length > 19) {
@@ -55,7 +56,8 @@
               let messageDiv = document.createElement("div");
               messageDiv.id = i;
               messageStructure =
-                                `<h4>${userMessages[i].user}</h4>
+                                `<img src="../images/${userMessages[i].user}.jpg" class="user_image">
+                                <h4>${userMessages[i].user}</h4>
                                 <p>${userMessages[i].message}</p>
                                 <p>${userMessages[i].timestamp}</p>
                                 <p>
