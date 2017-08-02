@@ -6,7 +6,6 @@ font-family: 'Anonymous Pro', monospace;
 
 *******************/
 #message-box {
-/*    margin: 150px 10%;*/
     border: 3px solid black;
     border-radius: 15px;
     width: 80%;
@@ -136,6 +135,7 @@ input[type=checkbox], input[type=radio] {
 /* No media query since this is the default in Bootstrap */
 
 /* Small devices (tablets, 768px and up) */
+
 @media (min-width: 400px) { 
 #message-box {
     margin: 290px 10%;
@@ -168,6 +168,7 @@ nav {
  }
 
 /* Large devices (large desktops, 1200px and up) */
+
 @media (min-width: 1200px) { 
 nav {
 	height: 95px;
@@ -177,3 +178,10 @@ nav {
     margin: 120px 10%;
 }
 
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+}

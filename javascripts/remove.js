@@ -4,23 +4,23 @@
   let clearBTN = document.getElementById("clear-btn");
   let messageBox = document.getElementById("message-box");
 
-  messageBox.addEventListener("click", function(e) {
-    if (e.target.className === "deleteBtn") {
-      let currentMessagesArr = Chatty.getUserMessagesArr();
-      let index = Chatty.findIndex(currentMessagesArr, "id", Number(e.target.parentNode.id));
-      currentMessagesArr.splice(index, 1);
-      Chatty.updateUserMessagesArray(currentMessagesArr);
-      messageBox.removeChild(e.target.parentNode.parentNode);
+  messageBox.addEventListener("click", function(e) { //event listener for deleteBtn
+    if (e.target.className === "deleteBtn visible") {
+      let currentMessagesArr = Chatty.getUserMessagesArr(); //update with current Messages in array.
+      let index = Chatty.findIndex(currentMessagesArr, "id", Number(e.target.parentNode.id)); //set index to the index of the correct message in the array.
+      currentMessagesArr.splice(index, 1); //splice out message from array with found index
+      Chatty.updateUserMessagesArray(currentMessagesArr); //call function to update current Messages array
+      messageBox.removeChild(e.target.parentNode.parentNode); //remove message from DOM
     }
   })
 
-  Chatty.clearAll = function(){
+  Chatty.clearAll = function(){ //function to clear all messages from DOM
     let clearArray = []
-    Chatty.updateUserMessagesArray(clearArray);
+    Chatty.updateUserMessagesArray(clearArray); //updates user Messages array with clear array
     messageBox.innerHTML = '';
   }
 
-  Chatty.findIndex = (array, property, value) => {
+  Chatty.findIndex = (array, property, value) => { //function to find index of message to be deleted in user messages array used in message deletion
     for(var i = 0, l = array.length ; i < l ; i++) {
       if(array[i][property] === value) {
         console.log(i);
