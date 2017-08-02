@@ -70,7 +70,7 @@
                         <img src="../images/${userMessages[i].user}.jpg" class="user_image">
                         <h4 class="username">${userMessages[i].user}</h4>
                         <p class="msg">${userMessages[i].message}</p>
-                        <p class="date">${userMessages[i].timestamp}</p>
+                        <time class="date timeago" dateTime="${userMessages[i].timestamp}"></time>
                         <p class="msgNumber">
                         Message #${i + 1}
                         </p>
@@ -120,6 +120,7 @@
       })
     };
     inputArea.value = '';
+    jQuery("time.timeago").timeago();
   }
 
   Chatty.createNewMessage = () => { //function called when creating new message
@@ -127,7 +128,7 @@
 
     let inputText = inputArea.value;
     let date = new Date();
-    let utcDate = date.toLocaleString();
+    let utcDate = date.toISOString();
     var currentUser = document.querySelector('input[name = "user"]:checked').value;
     if (currentUser === "" || inputText==="") { //used to know if text is empty
 
@@ -162,7 +163,7 @@
                               <img src="../images/${userMessages[i].user}.jpg" class="user_image">
                               <h4 class="username">${userMessages[i].user}</h4>
                               <p class="msg">${userMessages[i].message}</p>
-                              <p class="date">${userMessages[i].timestamp}</p>
+                              <time class="date timeago" dateTime="${userMessages[i].timestamp}"></time>
                               <p class="msgNumber">
                               Message #${i + 1}
                               </p>
@@ -214,6 +215,7 @@
           };
 
           inputArea.value="";
+          jQuery("time.timeago").timeago();
     }
 
 
@@ -242,7 +244,7 @@
                         <img src="../images/${userMessages[i].user}.jpg" class="user_image">
                         <h4 class="username">${userMessages[i].user}</h4>
                         <p class="msg">${userMessages[i].message}</p>
-                        <p class="date">${userMessages[i].timestamp}</p>
+                        <time class="date timeago" dateTime="${userMessages[i].timestamp}"></time>
                         <p class="msgNumber">
                         Message #${i + 1}
                         </p>
@@ -292,11 +294,13 @@
       })
     };
     inputArea.value = '';
+    jQuery("time.timeago").timeago();
   }
 
   Chatty.loadJSONToDOM = () => { //loads from usermessages array. Now that I think about it the edit message function may be able to do this.
     console.log("loadingJSON", userMessages);
     for (let i = 0; i < userMessages.length; i++) {
+      let commentArray = [];
       let messageDiv = document.createElement("div");
       messageDiv.id = i;
       messageDiv.classList.add(`${userMessages[i].user}`);
@@ -312,7 +316,7 @@
                         <img src="../images/${userMessages[i].user}.jpg" class="user_image">
                         <h4 class="username">${userMessages[i].user}</h4>
                         <p class="msg">${userMessages[i].message}</p>
-                        <p class="date">${userMessages[i].timestamp}</p>
+                        <time class="date timeago" dateTime="${userMessages[i].timestamp}"></time>
                         <p class="msgNumber">
                         Message #${i + 1}
                         </p>
@@ -321,6 +325,14 @@
                         </div>`;
       messageDiv.innerHTML = messageStructure;
       // messageDiv.appendChild(editBtn);
+
+
+        let userComments = userMessages[i]["comments"];
+        for (var j = 0; j < userComments.length; j++) {
+          commentArray.push(userComments[j]);
+        }
+        console.log(commentArray);
+
       $("#message-box").prepend(messageDiv);
 
       let thisEditButton = document.getElementById(`editBtn${i}`);
@@ -331,6 +343,7 @@
       })
     };
     inputArea.value = '';
+    jQuery("time.timeago").timeago();
   }
 
   Chatty.loadJSONToDOM();
