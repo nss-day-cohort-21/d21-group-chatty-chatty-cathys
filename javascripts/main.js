@@ -12,12 +12,9 @@
 
 
   let thisMessage;
-  let eachJSONMessage = Chatty.returnJSON();
-  let userMessages = [];
-  for (var i = 0; i < eachJSONMessage.length; i++) { //adds JSON messages to user messages array. 
-    thisMessage = eachJSONMessage[i];
-    userMessages.push(thisMessage);
-  }
+
+  let userMessages = Chatty.returnJSON();
+
 
 
 	let inputArea = document.getElementById("messages-input");
@@ -45,6 +42,7 @@
 
   Chatty.updateUserMessagesArray = (newArray) => { //updates user messages array with new array. Used in deleting messages
     userMessages = newArray;
+    Chatty.updateDelete();
   }
 
   Chatty.changeInputToEdit = (text, div, e) => { //function used when edit button is clicked to change conditions of input area to know if text is edited text or new text
@@ -52,6 +50,76 @@
     inputArea.value = text;
     divToEdit = div;
     inputArea.focus();
+  }
+
+  Chatty.updateDelete = () => {
+    outputDiv.innerHTML = '';
+    userRadios = Array.from(document.querySelectorAll("#users-radio > input"));
+    console.log("Update after delete", userMessages);
+    for (let i = 0; i < userMessages.length; i++) {
+      let messageDiv = document.createElement("div");
+      messageDiv.id = i;
+
+      let innerDiv = document.createElement("div");
+      innerDiv.classList.add(userMessages[i].user);
+      innerDiv.classList.add("msgDefault");
+      innerDiv.id = i+100;
+
+      messageStructure =
+                        `
+                        <img src="../images/${userMessages[i].user}.jpg" class="user_image">
+                        <h4 class="username">${userMessages[i].user}</h4>
+                        <p class="msg">${userMessages[i].message}</p>
+                        <p class="date">${userMessages[i].timestamp}</p>
+                        <p class="msgNumber">
+                        Message #${i + 1}
+                        </p>
+                        `;
+      innerDiv.innerHTML = messageStructure;
+
+
+
+      let thisEditBtn = document.createElement("button");
+      thisEditBtn.id = `editBtn${i}`;
+      thisEditBtn.classList.add("editBtn");
+
+      let thisXBtn = document.createElement("button");
+      thisXBtn.id = `xBtn${i}`;
+      thisXBtn.classList.add("deleteBtn");
+      thisXBtn.innerHTML = "X"
+
+
+
+        for (var l = 0; l < userRadios.length; l++) {
+          if (userRadios[l].checked && userRadios[l].defaultValue === userMessages[i]["user"]) {
+            thisEditBtn.classList.remove("hidden");
+            thisEditBtn.classList.add("visible");
+            thisXBtn.classList.remove("hidden");
+            thisXBtn.classList.add("visible");
+            break;
+          } else {
+            thisEditBtn.classList.remove("visible");
+            thisEditBtn.classList.add("hidden");
+            thisXBtn.classList.remove("visible");
+            thisXBtn.classList.add("hidden");
+          }
+        }
+
+      innerDiv.appendChild(thisEditBtn);
+      innerDiv.appendChild(thisXBtn);
+
+      messageDiv.appendChild(innerDiv);
+     // messageDiv.appendChild(editBtn);
+      $("#message-box").prepend(messageDiv);
+
+      let thisEditButton = document.getElementById(`editBtn${i}`);
+      thisEditButton.addEventListener("click", function(e) {
+        let editedText = userMessages[i].message;
+        let editedTextDiv = e.target.parentNode.parentNode;
+        Chatty.changeInputToEdit(editedText, editedTextDiv);
+      })
+    };
+    inputArea.value = '';
   }
 
   Chatty.createNewMessage = () => { //function called when creating new message
@@ -76,6 +144,7 @@
           }
 
           userMessages.push(messageObject); //push new object
+          console.log("creating new message", userMessages);
           outputDiv.innerHTML = '';
           userRadios = Array.from(document.querySelectorAll("#users-radio > input"));
 
@@ -158,6 +227,7 @@
     outputDiv.innerHTML = '';
     userRadios = Array.from(document.querySelectorAll("#users-radio > input"));
 
+    console.log("when editing", userMessages);
     for (let i = 0; i < userMessages.length; i++) {
       let messageDiv = document.createElement("div");
       messageDiv.id = i;
@@ -225,7 +295,7 @@
   }
 
   Chatty.loadJSONToDOM = () => { //loads from usermessages array. Now that I think about it the edit message function may be able to do this.
-
+    console.log("loadingJSON", userMessages);
     for (let i = 0; i < userMessages.length; i++) {
       let messageDiv = document.createElement("div");
       messageDiv.id = i;
@@ -259,10 +329,6 @@
         let editedTextDiv = e.target.parentNode.parentNode;
         Chatty.changeInputToEdit(editedText, editedTextDiv);
       })
-      let thisXButton = document.getElementById(`xBtn${i}`);
-      thisXButton.addEventListener("click", function(e) {
-
-      })
     };
     inputArea.value = '';
   }
@@ -291,10 +357,11 @@
       let eachRadioUser = userRadios[j];
       eachRadioUser.addEventListener("click", function(e) {
         currUserMessages = Chatty.getUserMessagesArr();
+        console.log(currUserMessages);
         for (var k = 0; k < currUserMessages.length; k++) {
           let thisEditButton = document.getElementById(`editBtn${k}`);
           let thisXButton = document.getElementById(`xBtn${k}`);
-          if (eachRadioUser.defaultValue === userMessages[k]["user"]) {
+          if (eachRadioUser.checked && eachRadioUser.defaultValue === userMessages[k]["user"]) {
             thisEditButton.classList.remove("hidden");
             thisEditButton.classList.add("visible");
             thisXButton.classList.remove("hidden");
