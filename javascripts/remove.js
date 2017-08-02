@@ -37,4 +37,20 @@
   }
 
   clearBTN.addEventListener("click", Chatty.clearAll);
+  body.addEventListener("click", function(e) {
+    let currentMessagesArr = Chatty.getUserMessagesArr();
+    if (currentMessagesArr.length === 0) {
+      clearBTN.setAttribute("disabled", true);
+    } else {
+      clearBTN.removeAttribute("disabled");
+    }
+  })
+  body.addEventListener("keypress", function(e) {
+    let currentMessagesArr = Chatty.getUserMessagesArr();
+    if (currentMessagesArr.length === 0) {
+      clearBTN.setAttribute("disabled", true);
+    } else {
+      clearBTN.removeAttribute("disabled");
+    }
+  })
 }

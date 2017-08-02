@@ -6,8 +6,8 @@ font-family: 'Anonymous Pro', monospace;
 
 *******************/
 #message-box {
-    border: 3px solid black;
-    border-radius: 15px;
+    /*border: 3px solid black;
+    border-radius: 15px;*/
     width: 80%;
     min-height: 100vh;
 }
@@ -33,6 +33,9 @@ font-family: 'Anonymous Pro', monospace;
 	padding: 2px 20px;
 	min-height: 150px;
 	width: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 5px auto;
 }
 
 .msgContainer{
@@ -136,20 +139,20 @@ input[type=checkbox], input[type=radio] {
 
 /* Small devices (tablets, 768px and up) */
 
-@media (min-width: 400px) { 
+@media (min-width: 400px) {
 #message-box {
     margin: 290px 10%;
 }
  }
 
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
 #message-box {
     margin: 190px 10%;
 }
  }
 
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) { 
+@media (min-width: 992px) {
 nav {
 	height: 135px;
 	#message-box {
@@ -169,7 +172,7 @@ nav {
 
 /* Large devices (large desktops, 1200px and up) */
 
-@media (min-width: 1200px) { 
+@media (min-width: 1200px) {
 nav {
 	height: 95px;
 }
