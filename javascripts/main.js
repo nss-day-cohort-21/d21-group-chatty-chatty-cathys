@@ -14,7 +14,7 @@
   let thisMessage;
   let eachJSONMessage = Chatty.returnJSON();
   let userMessages = [];
-  for (var i = 0; i < eachJSONMessage.length; i++) {
+  for (var i = 0; i < eachJSONMessage.length; i++) { //adds JSON messages to user messages array. 
     thisMessage = eachJSONMessage[i];
     userMessages.push(thisMessage);
   }
@@ -26,50 +26,48 @@
 	let messageObject = {};
   let isEditing = false;
   let divToEdit;
-  $("#messages-input").keypress((event) =>{
+  $("#messages-input").keypress((event) =>{ //event listener that determines if the text in the input is being edited or is a new message
     if (event.keyCode === 13 && isEditing === true) {
-      Chatty.editMessage();
+      Chatty.editMessage(); //if editing call the editing function
 
     } else if (event.keyCode === 13 && isEditing === false) {
       if (userMessages.length > 19) {
-        userMessages.shift();
+        userMessages.shift(); //if more than 20 messages in array take away first message in array
       }
 
-      Chatty.createNewMessage();
+      Chatty.createNewMessage(); //if new message call create new message function
     }
   });
 
-  Chatty.getUserMessagesArr = () => {
+  Chatty.getUserMessagesArr = () => { //function to return current user messages
     return userMessages
   }
 
-  Chatty.updateUserMessagesArray = (newArray) => {
+  Chatty.updateUserMessagesArray = (newArray) => { //updates user messages array with new array. Used in deleting messages
     userMessages = newArray;
   }
 
-  Chatty.changeInputToEdit = (text, div) => {
+  Chatty.changeInputToEdit = (text, div, e) => { //function used when edit button is clicked to change conditions of input area to know if text is edited text or new text
     isEditing = true;
     inputArea.value = text;
     divToEdit = div;
     inputArea.focus();
   }
 
-  Chatty.createNewMessage = () => {
+  Chatty.createNewMessage = () => { //function called when creating new message
     event.preventDefault();
 
     let inputText = inputArea.value;
     let date = new Date();
     let utcDate = date.toLocaleString();
     var currentUser = document.querySelector('input[name = "user"]:checked').value;
-    console.log(inputText);
-    console.log(currentUser);
-    if (currentUser === "" || inputText==="") {
+    if (currentUser === "" || inputText==="") { //used to know if text is empty
 
           alert("You must select a user and enter a message.  This is CHATTY Cathy, not Emo Wallflower Cathy.");
 
     }  else  {
 
-          messageObject =
+          messageObject = //message object created to add to userMessages array.
           {
             "id" : (userMessages.length),
             "user" : currentUser,
@@ -77,19 +75,21 @@
             "timestamp": utcDate
           }
 
-          userMessages.push(messageObject);
+          userMessages.push(messageObject); //push new object
           outputDiv.innerHTML = '';
-          for (let i = 0; i < userMessages.length; i++) {
+          userRadios = Array.from(document.querySelectorAll("#users-radio > input"));
+
+          for (let i = 0; i < userMessages.length; i++) { //run through array of user messages and recreate DOM
             let messageDiv = document.createElement("div");
             messageDiv.id = i;
 
-            // let editBtn = document.createElement("button");
-            // editBtn.id = `editBtn${i}`;
-            // editBtn.className = "editBtn";
-            // editBtn.innerHTML = "";
+            let innerDiv = document.createElement("div");
+            innerDiv.classList.add(userMessages[i].user);
+            innerDiv.classList.add("msgDefault");
+            innerDiv.id = i+100;
 
             messageStructure =
-                              `<div class="${userMessages[i].user} msgDefault">
+                              `
                               <img src="../images/${userMessages[i].user}.jpg" class="user_image">
                               <h4 class="username">${userMessages[i].user}</h4>
                               <p class="msg">${userMessages[i].message}</p>
@@ -97,19 +97,49 @@
                               <p class="msgNumber">
                               Message #${i + 1}
                               </p>
-                              <button type="button" id="editBtn${i}" class="editBtn"></button>
-                              <button type="button" class="deleteBtn">X</button>
-                              </div>
                               `;
-            messageDiv.innerHTML = messageStructure;
+            innerDiv.innerHTML = messageStructure;
+
+
+
+            let thisEditBtn = document.createElement("button");
+            thisEditBtn.id = `editBtn${i}`;
+            thisEditBtn.classList.add("editBtn");
+
+            let thisXBtn = document.createElement("button");
+            thisXBtn.id = `xBtn${i}`;
+            thisXBtn.classList.add("deleteBtn");
+            thisXBtn.innerHTML = "X"
+
+
+
+              for (var l = 0; l < userRadios.length; l++) { //checks for radio checked to determine which edit / delete buttons to show
+                if (userRadios[l].checked && userRadios[l].defaultValue === userMessages[i]["user"]) {
+                  thisEditBtn.classList.remove("hidden");
+                  thisEditBtn.classList.add("visible");
+                  thisXBtn.classList.remove("hidden");
+                  thisXBtn.classList.add("visible");
+                  break;
+                } else {
+                  thisEditBtn.classList.remove("visible");
+                  thisEditBtn.classList.add("hidden");
+                  thisXBtn.classList.remove("visible");
+                  thisXBtn.classList.add("hidden");
+                }
+              }
+
+            innerDiv.appendChild(thisEditBtn);
+            innerDiv.appendChild(thisXBtn);
+
+            messageDiv.appendChild(innerDiv);
 
             //messageDiv.appendChild(editBtn);
             $("#message-box").prepend(messageDiv);
 
             let thisEditButton = document.getElementById(`editBtn${i}`);
-            thisEditButton.addEventListener("click", function(e) {
+            thisEditButton.addEventListener("click", function(e) { // event listener that gets area to edit and to change text input to know the text is edited text instead of new text
               let editedText = userMessages[i].message;
-              let editedTextDiv = e.target.parentNode;
+              let editedTextDiv = e.target.parentNode.parentNode;
               Chatty.changeInputToEdit(editedText, editedTextDiv);
             })
           };
@@ -120,53 +150,82 @@
 
   }
 
-  Chatty.editMessage = () => {
+  Chatty.editMessage = (e) => { // this is the same as creating new message except it does not create a new message object and push to user message array.
     let inputText = inputArea.value;
-
     let indexOfDiv = Chatty.findIndex(userMessages, "id", Number(divToEdit.id));
     userMessages[indexOfDiv]["message"] = inputText;
     isEditing = false;
     outputDiv.innerHTML = '';
+    userRadios = Array.from(document.querySelectorAll("#users-radio > input"));
+
     for (let i = 0; i < userMessages.length; i++) {
       let messageDiv = document.createElement("div");
       messageDiv.id = i;
 
-      // let editBtn = document.createElement("button");
-      // editBtn.id = `editBtn${i}`;
-      // editBtn.className = "editBtn";
-      // editBtn.innerHTML = "";
+      let innerDiv = document.createElement("div");
+      innerDiv.classList.add(userMessages[i].user);
+      innerDiv.classList.add("msgDefault");
+      innerDiv.id = i+100;
 
       messageStructure =
-                        `<div class="${userMessages[i].user} msgDefault">
-                              <img src="../images/${userMessages[i].user}.jpg" class="user_image">
+                        `
+                        <img src="../images/${userMessages[i].user}.jpg" class="user_image">
                         <h4 class="username">${userMessages[i].user}</h4>
                         <p class="msg">${userMessages[i].message}</p>
                         <p class="date">${userMessages[i].timestamp}</p>
                         <p class="msgNumber">
                         Message #${i + 1}
                         </p>
-                        <button type="button" id="editBtn${i}" class="editBtn"></button>
-                        <button type="button" class="deleteBtn">X</button>
-                        </div>
                         `;
-      messageDiv.innerHTML = messageStructure;
+      innerDiv.innerHTML = messageStructure;
 
-      outputDiv.appendChild(messageDiv);
+
+
+      let thisEditBtn = document.createElement("button");
+      thisEditBtn.id = `editBtn${i}`;
+      thisEditBtn.classList.add("editBtn");
+
+      let thisXBtn = document.createElement("button");
+      thisXBtn.id = `xBtn${i}`;
+      thisXBtn.classList.add("deleteBtn");
+      thisXBtn.innerHTML = "X"
+
+
+
+        for (var l = 0; l < userRadios.length; l++) {
+          if (userRadios[l].checked && userRadios[l].defaultValue === userMessages[i]["user"]) {
+            thisEditBtn.classList.remove("hidden");
+            thisEditBtn.classList.add("visible");
+            thisXBtn.classList.remove("hidden");
+            thisXBtn.classList.add("visible");
+            break;
+          } else {
+            thisEditBtn.classList.remove("visible");
+            thisEditBtn.classList.add("hidden");
+            thisXBtn.classList.remove("visible");
+            thisXBtn.classList.add("hidden");
+          }
+        }
+
+      innerDiv.appendChild(thisEditBtn);
+      innerDiv.appendChild(thisXBtn);
+
+      messageDiv.appendChild(innerDiv);
      // messageDiv.appendChild(editBtn);
       $("#message-box").prepend(messageDiv);
 
       let thisEditButton = document.getElementById(`editBtn${i}`);
       thisEditButton.addEventListener("click", function(e) {
         let editedText = userMessages[i].message;
-        let editedTextDiv = e.target.parentNode;
+        let editedTextDiv = e.target.parentNode.parentNode;
         Chatty.changeInputToEdit(editedText, editedTextDiv);
       })
     };
     inputArea.value = '';
   }
 
-  Chatty.loadJSONToDOM = () => {
-    console.log(userMessages);
+  Chatty.loadJSONToDOM = () => { //loads from usermessages array. Now that I think about it the edit message function may be able to do this.
+
     for (let i = 0; i < userMessages.length; i++) {
       let messageDiv = document.createElement("div");
       messageDiv.id = i;
@@ -187,42 +246,68 @@
                         <p class="msgNumber">
                         Message #${i + 1}
                         </p>
-                        <button type="button" id="editBtn${i}" class="editBtn"></button>
-                        <button type="button" class="deleteBtn">X</button>
+                        <button type="button" id="editBtn${i}" class="editBtn hidden"></button>
+                        <button type="button" class="deleteBtn hidden" id="xBtn${i}">X</button>
                         </div>`;
       messageDiv.innerHTML = messageStructure;
       // messageDiv.appendChild(editBtn);
-      console.log(messageDiv);
-      console.log(outputDiv);
       $("#message-box").prepend(messageDiv);
 
       let thisEditButton = document.getElementById(`editBtn${i}`);
       thisEditButton.addEventListener("click", function(e) {
         let editedText = userMessages[i].message;
-        let editedTextDiv = e.target.parentNode;
+        let editedTextDiv = e.target.parentNode.parentNode;
         Chatty.changeInputToEdit(editedText, editedTextDiv);
+      })
+      let thisXButton = document.getElementById(`xBtn${i}`);
+      thisXButton.addEventListener("click", function(e) {
+
       })
     };
     inputArea.value = '';
   }
 
   Chatty.loadJSONToDOM();
-}
 //////////////////////////////////////////////////////
-console.log("hello");
-{
-	let users = { "names": ["Ronnie", "James", "Bruce", "Gene", "Dave"]};
+
+	let users = { "names": ["Ronnie", "James", "Bruce", "Gene", "Dave"]}; //creates radio buttons
 	let userSelectDiv = document.getElementById("users-radio");
-	userSelectDiv.innerHTML = `<input type="radio" name="user" id="radio--defalut"" value="" checked>Select A User</input>`
-	Chatty.userSelect = ()=> {
-		for (let i = 0; i < users.names.length; i++) {
+  let userRadios;
+  let currUserMessages;
+	userSelectDiv.innerHTML = `<input type="radio" name="user" id="radio--defalut" value="" checked>Select A User</input>`
+	Chatty.userSelect = () => {
+		for (let i = 0; i < users.names.length; i++) { //adds radio buttons to DOM
 		let name = users.names[i];
 		// console.log( "name", name );
-		let radioHTML = `<input type="radio" name="user" id="radio--${i}"" value="${name}">${name}</input>`
+		let radioHTML = `<input type="radio" name="user" id="radio--${i}" value="${name}">${name}</input>`
 		// console.log( "radioHTML", radioHTML );
 
 		userSelectDiv.innerHTML += radioHTML;
-		};
+
+		}
+    userRadios = Array.from(document.querySelectorAll("#users-radio > input"));
+
+    for (var j = 0; j < userRadios.length; j++) { //creates event listener that determines which edit and delete buttons to show based off which is clicked.
+      let eachRadioUser = userRadios[j];
+      eachRadioUser.addEventListener("click", function(e) {
+        currUserMessages = Chatty.getUserMessagesArr();
+        for (var k = 0; k < currUserMessages.length; k++) {
+          let thisEditButton = document.getElementById(`editBtn${k}`);
+          let thisXButton = document.getElementById(`xBtn${k}`);
+          if (eachRadioUser.defaultValue === userMessages[k]["user"]) {
+            thisEditButton.classList.remove("hidden");
+            thisEditButton.classList.add("visible");
+            thisXButton.classList.remove("hidden");
+            thisXButton.classList.add("visible");
+          } else {
+            thisEditButton.classList.remove("visible");
+            thisEditButton.classList.add("hidden");
+            thisXButton.classList.remove("visible");
+            thisXButton.classList.add("hidden");
+          }
+        }
+      })
+    }
 	}
 	Chatty.userSelect()
 }
@@ -261,7 +346,7 @@ console.log("hello");
 
 // Modal Theme Chooser
 
-var body = document.getElementById("body");
+var body = document.getElementById("body"); //creates custom theme modal
 var nav = document.getElementById("nav");
 
 var bgColor = document.getElementById("bg-color");

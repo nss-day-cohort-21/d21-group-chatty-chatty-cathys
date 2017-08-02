@@ -1,7 +1,7 @@
 // console.log("loader.js loaded");
 
 {
-  var Chatty = {};
+  var Chatty = {}; //normal xhr to get messages from JSON file
 
   let loadedJSON = [];
 

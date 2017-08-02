@@ -134,12 +134,12 @@ input[type=checkbox], input[type=radio] {
 /* No media query since this is the default in Bootstrap */
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: @screen-sm-min) { 
+@media (min-width: @screen-sm-min) {
 
  }
 
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: @screen-md-min) { 
+@media (min-width: @screen-md-min) {
 nav {
 	height: 135px;
 }
@@ -149,9 +149,16 @@ nav {
  }
 
 /* Large devices (large desktops, 1200px and up) */
-@media (min-width: @screen-lg-min) { 
+@media (min-width: @screen-lg-min) {
 nav {
 	height: 95px;
 }
 }
 
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: block;
+}
