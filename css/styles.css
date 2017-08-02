@@ -5,6 +5,16 @@
 font-family: 'Anonymous Pro', monospace;
 
 *******************/
+#message-box {
+/*    margin: 150px 10%;*/
+    border: 3px solid black;
+    border-radius: 15px;
+    width: 80%;
+    min-height: 100vh;
+}
+.container {
+	margin: 0 auto;
+}
 #clear-btn {
 	margin-top: 8px;
 }
@@ -17,14 +27,6 @@ font-family: 'Anonymous Pro', monospace;
 
 .theme-btn{
 	margin: 20px 0;
-}
-
-#message-box {
-	margin: 200px auto;
-	border: 3px solid black;
-	border-radius: 15px;
-	width: 80%;
-	min-height: 100vh;
 }
 
 .msgDefault{
@@ -134,24 +136,44 @@ input[type=checkbox], input[type=radio] {
 /* No media query since this is the default in Bootstrap */
 
 /* Small devices (tablets, 768px and up) */
-@media (min-width: @screen-sm-min) { 
+@media (min-width: 400px) { 
+#message-box {
+    margin: 290px 10%;
+}
+ }
 
+@media (min-width: 768px) { 
+#message-box {
+    margin: 190px 10%;
+}
  }
 
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: @screen-md-min) { 
+@media (min-width: 992px) { 
 nav {
 	height: 135px;
+	#message-box {
+    margin: 350px auto;
+}
 }
 .theme-btn{
 	margin-top: 5px;
 }
+
+#message-box {
+    margin: 150px 10%;
+}
+
+
  }
 
 /* Large devices (large desktops, 1200px and up) */
-@media (min-width: @screen-lg-min) { 
+@media (min-width: 1200px) { 
 nav {
 	height: 95px;
 }
+
+#message-box {
+    margin: 120px 10%;
 }
 
