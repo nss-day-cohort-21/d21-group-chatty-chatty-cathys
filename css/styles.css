@@ -14,13 +14,13 @@ font-family: 'Anonymous Pro', monospace;
 .container {
 	margin: 0 auto;
 }
-#clear-btn {
+/*#clear-btn {
 	margin-top: 8px;
 }
 #dark-theme{
 	margin-left: 15px;
 }
-
+*/
 
 .theme-btn{
 	margin: 20px 0;
@@ -31,9 +31,11 @@ font-family: 'Anonymous Pro', monospace;
 	padding: 2px 20px;
 	min-height: 150px;
 	width: 100%;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin: 5px auto;
+  border-top: 1px solid grey;
+  border-left: 1px solid grey;
+  border-radius: 20px 0;
+  margin: 5px auto 12px;
+  box-shadow: 3px 3px 10px black;
 }
 
 .msgContainer{
@@ -188,7 +190,7 @@ nav {
 }
 
 .brand-img {
-  margin-top: 35px;
+  margin: 35px 30px;
 }
 
 #message-box {
@@ -211,6 +213,7 @@ nav {
 
 .brand-img {
   margin-top: 35px;
+  margin-left: 52px;
 }
 
 .theme-btn{
